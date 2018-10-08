@@ -1,24 +1,62 @@
-table.diamondsweeper-board {
-  td {
-    padding: 0;
-    border: 1px solid black;
-  }
+* {
+    box-sizing: border-box;
 }
-
-.cell {
-  height: 50px;
-  width: 50px;
-  background-size: 50px 50px;
-
-  &.diamond {
-    background-image: url(diamond.png);
-  }
-
-  &.arrow {
-    background-image: url(arrow.png);
-  }
-
-  &.unknown {
-    background-image: url(question.png);
-  }
+body {
+    padding: 0;
+    margin: 0;
+    .board {
+        width: 95vw;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        .activities{
+          display: flex;
+          justify-content: space-around;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            
+            .cell:nth-child(odd) {
+                background-color: #8b4513;
+            }
+            .cell:nth-child(even) {
+                background-color: #cd853f;
+            }
+            .cell {
+                display: flex;
+                border-radius: 50%;
+                justify-content: center;
+                align-items: center;
+                font-weight: 300;
+                cursor: pointer;
+                min-height: 12vw;
+                width: 12vw;
+                transition: .2s ease;
+                margin: 2px;
+            }
+            .diamond {
+                background-image: url(diamond.png);
+                background-size: 0;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-blend-mode: soft-light;
+            }
+            .arrow {
+                background-image: url(arrow.png);
+                background-size: 0;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-blend-mode: soft-light;
+            }
+            .unknown {
+                background-image: url(question.png);
+                background-size: 0;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-blend-mode: soft-light;
+            }
+        }
+    }
 }
