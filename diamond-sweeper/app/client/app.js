@@ -65,3 +65,27 @@
         element.appendChild(row);
     };
 
+    global.save = function() {
+        let element = document.querySelectorAll('[x]');
+        Object.keys(element).map((item) => {
+            classMemory[`${parseInt(element[item].getAttribute('x'))},${parseInt(element[item].getAttribute('y'))}`] = { class: element[item].className, style: element[item].style.backgroundSize };
+        });
+    }
+
+    global.undo = function() {
+        Object.keys(classMemory).map((item) => {
+            let placement = item.split(',');
+            let curr = document.querySelectorAll(`div[x="${placement[0]}"][y="${placement[1]}"]`);
+            curr[0].className = classMemory[item].class;
+            curr[0].style.backgroundSize = classMemory[item].style;
+        });
+    }
+
+    global.done = function() {
+        let element = document.querySelectorAll('[x]');
+        alert(`Your Score is : ${Object.keys(element).reduce((count,item)=>{
+        if(element[item].className === 'cell' || element[item].className === 'cell diamond') count++;
+        return count;
+      },0)}`)
+        return;
+    }
