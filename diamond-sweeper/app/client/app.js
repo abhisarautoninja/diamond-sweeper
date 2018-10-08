@@ -68,16 +68,20 @@
     global.save = function() {
         let element = document.querySelectorAll('[x]');
         Object.keys(element).map((item) => {
-            classMemory[`${parseInt(element[item].getAttribute('x'))},${parseInt(element[item].getAttribute('y'))}`] = { class: element[item].className, style: element[item].style.backgroundSize };
+            classMemory[`${parseInt(element[item].getAttribute('x'))},${parseInt(element[item].getAttribute('y'))}`] = { class: element[item].className, backgroundSize: element[item].style.backgroundSize ,transform: element[item].style.transform};
         });
+        localStorage.setItem("Diamond-Sweeper-Memory", JSON.stringify(classMemory));
+        alert('Your game progress is saved !!!')
     }
 
     global.undo = function() {
+    	classMemory = JSON.parse(localStorage.getItem("Diamond-Sweeper-Memory"));
         Object.keys(classMemory).map((item) => {
             let placement = item.split(',');
             let curr = document.querySelectorAll(`div[x="${placement[0]}"][y="${placement[1]}"]`);
             curr[0].className = classMemory[item].class;
-            curr[0].style.backgroundSize = classMemory[item].style;
+            curr[0].style.backgroundSize = classMemory[item].backgroundSize;
+            curr[0].style.transform = classMemory[item].transform;
         });
     }
 
@@ -85,7 +89,7 @@
         let element = document.querySelectorAll('[x]');
         alert(`Your Score is : ${Object.keys(element).reduce((count,item)=>{
         if(element[item].className === 'cell' || element[item].className === 'cell diamond') count++;
-        return count;
-      },0)}`)
+        return count;},0)}`)
         return;
     }
+
